@@ -1,0 +1,5 @@
+*.exe
+*.o
+TIcTacToeAmir.cbp
+*.depend
+TIcTacToeAmir.layout
