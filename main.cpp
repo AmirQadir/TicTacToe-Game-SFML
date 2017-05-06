@@ -12,5 +12,6 @@ int main(){
         game.HandleInput();
         game.Update();
         game.Render();
+
     }
 }
