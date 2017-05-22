@@ -10,16 +10,18 @@ class Game
         Game();
         ~Game();
         void HandleInput();
-        void Update();
+        int Update();
         void Render();
         Window* GetWindow();
         bool didUserWin();
         bool didBotWin();
         void displayBoard();
+        void displayMessage(int);
 
     private:
         Window m_window; //composition
         int board[3][3];
+
 
 
         //all texture objects will be here
