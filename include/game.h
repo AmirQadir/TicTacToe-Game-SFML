@@ -7,9 +7,8 @@
 class Game
 {
     public:
-        Game();
+        Game(int diff);
         ~Game();
-        void HandleInput();
         int Update();
         void Render();
         Window* GetWindow();
@@ -38,7 +37,8 @@ class Game
         sf::Sprite bsprite[5];
         sf::Texture btex;
 
-        Bot myBot; // Composition but galat jaga par (?)
+        Bot *myBot; // Composition but galat jaga par (?)
+        // Because Bot is an Abstract Class
 };
 
 #endif // GAME_H

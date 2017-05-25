@@ -1,9 +1,19 @@
 #include "Game.h"
 #include <iostream>
-
-Game::Game()
+#include <BotEasy.h>
+#include <BotHard.h>
+Game::Game(int diff)
 {
     //    initialize array to zero
+    if(diff==0)
+    {
+        myBot = new BotEasy(); // Upcasting
+
+    }
+    else{
+        myBot = new BotHard(); // Upcasting
+    }
+
     for(int i=0;i<3;i++)
         for(int j=0;j<3;j++)
             board[i][j]=0;
@@ -15,7 +25,6 @@ Game::Game()
 
     //cross
     tex_cross_1.loadFromFile("X.png");
-    //sp_cross_1.setTexture(tex_cross_1);
 
     for(int i=0;i<5;i++)
     {
@@ -27,6 +36,7 @@ Game::Game()
     for(int i=0; i<5; i++)
     {
         bsprite[i].setTexture(btex);
+        bsprite[i].setOrigin(128,128);
         bsprite[i].setPosition(-200,0);
     }
 
@@ -45,7 +55,11 @@ void Game::displayMessage(int x)
     m_window.BeginDraw();
 
     sf::Texture t;
-    t.loadFromFile("message1.png");
+//    x==1?t.loadFromFile("message1.png"):t.loadFromFile("message2.png");
+    if(x==1) t.loadFromFile("message1.png");
+    else if(x==2) t.loadFromFile("message2.png");
+    else t.loadFromFile("message3.png");
+
     sf::Sprite s;
     s.setTexture(t);
 
@@ -75,10 +89,6 @@ void Game::Render()
        // std::cout << "POS of CROSS: " << sp_cross_1.getPosition().x << " " << sp_cross_1.getPosition().y << std::endl;
 }
 
-void Game::HandleInput()
-{
-
-}
 
 int Game::Update()
 {
@@ -97,7 +107,7 @@ int Game::Update()
 
     if(botTurn==true)
     {
-        myBot.placePiece(board); //checks the board and BOT places piece accordingly
+        myBot->placePiece(board); //checks the board and BOT places piece accordingly
 
          bool didBotWin_var = didBotWin();
          if (didBotWin_var == true)
@@ -108,8 +118,27 @@ int Game::Update()
 
     }
 
-        displayBoard();
-        return 0;
+
+
+
+    int count=0;
+
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            if(board[i][j]==1||board[i][j]==2)
+            count++;
+        }
+    }
+    if(count==9)
+    {
+        return -1;
+    }
+
+    displayBoard();
+
+    return 0;
 }
 
 bool Game::didUserWin()
@@ -269,48 +298,48 @@ void Game::displayBoard()
 
          if(board[0][0]==2)
         {
-            bsprite[j].setPosition(0,0);
+            bsprite[j].setPosition(100,100);
             j++;
         }
         if(board[0][1]==2)
         {
 
-            bsprite[j].setPosition(200,0);
+            bsprite[j].setPosition(300,100);
             j++;
         }
         if(board[0][2]==2)
         {
-            bsprite[j].setPosition(400,0);
+            bsprite[j].setPosition(500,100);
             j++;
         }
         if(board[1][0]==2)
         {
-            bsprite[j].setPosition(0,200);
+            bsprite[j].setPosition(100,300);
             j++;
         }
         if(board[1][1]==2)
         {
-            bsprite[j].setPosition(200,200);
+            bsprite[j].setPosition(300,300);
             j++;
         }
         if(board[1][2]==2)
         {
-            bsprite[j].setPosition(400,200);
+            bsprite[j].setPosition(500,300);
             j++;
         }
         if(board[2][0]==2)
         {
-            bsprite[j].setPosition(0,400);
+            bsprite[j].setPosition(100,500);
             j++;
         }
         if(board[2][1]==2)
         {
-            bsprite[j].setPosition(200,400);
+            bsprite[j].setPosition(300,500);
             j++;
         }
         if(board[2][2]==2)
         {
-            bsprite[j].setPosition(400,400);
+            bsprite[j].setPosition(500,500);
             j++;
         }
 
